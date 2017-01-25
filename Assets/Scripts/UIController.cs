@@ -2,22 +2,54 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIController : MonoBehaviour
 {
 
-    public GameController gc; 
+    public GameController gc;
+    public GameObject gameOverSreen;
     public Color[] colors;
-    
+
     public Text time;
+    public Text score;
+
+    public Text gameOverScore;
+
+
+    void Start()
+    {
+        GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().GameOverEvent += GameOver;
+    }
+
 
     void Update()
     {
-        time.text = gc.remainingTime.ToString("00.00");
+        if (GetComponent<Canvas>().isActiveAndEnabled)
+        {
+            time.text = gc.remainingTime.ToString("00.00");
+            score.text = gc.score.ToString();
+            gameOverScore.text = gc.score.ToString();
+        }
+
     }
 
     public void SetPlayerColor(int newColor)
     {
         GameObject.FindGameObjectWithTag("Player").GetComponent<Renderer>().material.color = colors[newColor];
+    }
+
+
+    void GameOver()
+    {
+        Debug.Log("Final Game Over");
+        gameOverSreen.GetComponent<Canvas>().enabled = true;
+        GetComponent<Canvas>().enabled = false;
+    }
+
+
+    public void LoadScene(int scene)
+    {
+        SceneManager.LoadScene(scene);
     }
 }

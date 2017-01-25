@@ -45,15 +45,13 @@ public class Plate : MonoBehaviour
         transform.position = new Vector3(transform.position.x, transform.position.y, target);
         target = transform.position.z + stepDistance;
 
-        if (transform.position.z == player.transform.position.z)
+        if (transform.position.z <= player.transform.position.z)
         {
             player.GetComponent<PlayerController>().TestBlock();
         }
-        
-       
-            Debug.Log("fin corrutina");
-
     }
+
+
     void FixedUpdate()
     {
         if (transform.position.z > 2)

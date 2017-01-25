@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-    public delegate void JumpDelegate();
-    public event JumpDelegate jumpEvent;
+   
+    public delegate void PlayerDelegate();
+    public event PlayerDelegate jumpEvent;
+    public event PlayerDelegate gameOverEvent;
     public float jumpRate;
+    public float gravity;
     float timeToNextJump = 0;
 
 
 	// Use this for initialization
 	void Start () {
-        
+        gravity = 6f;
        
 	}
 
@@ -38,11 +41,26 @@ public class PlayerController : MonoBehaviour {
         {
             if (GetComponent<Renderer>().material.color != hit.transform.gameObject.GetComponent<Renderer>().material.color)
             {
-                Debug.Log("Fail");
+                gameOverEvent();
+                Debug.Log("Game Over pc");
+                StartCoroutine(FallingBlock());
             }
         }           
        
     }
 
-    
+
+    IEnumerator FallingBlock()
+    {
+       
+        while (transform.position.x > -5f)
+        {
+            transform.Translate(Vector3.down * gravity * Time.deltaTime);
+            yield return null;
+        }
+        
+    }
+
+
+
 }

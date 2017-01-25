@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
+
+    public delegate void GameControllerEvent();
+    public event GameControllerEvent GameOverEvent;
+
     public float remainingTime = 60;
     public float score = 0;
     bool newSpawn = false;
@@ -14,6 +18,7 @@ public class GameController : MonoBehaviour
     void Start()
     {
         GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().jumpEvent += SpawnPlate;
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().gameOverEvent += GameOver;
         Instantiate(platePrefab, spawner.transform.position, Quaternion.identity);
     }
 
@@ -24,7 +29,7 @@ public class GameController : MonoBehaviour
         
         if (remainingTime <= 0)
         {
-            Debug.Log("Game over");
+            GameOver();
         }
     }
 
@@ -42,6 +47,13 @@ public class GameController : MonoBehaviour
     void SpawnPlate()
     {
         newSpawn = true;
+        score++;
+    }
+
+    void GameOver()
+    {
+        GameOverEvent();        
+        Debug.Log("Game over gc");
     }
 
 
