@@ -13,8 +13,12 @@ public class PlayerController : MonoBehaviour {
     float timeToNextJump = 0;
 
 
-	// Use this for initialization
-	void Start () {
+    Animator anim;
+
+
+    // Use this for initialization
+    void Start () {
+        anim = GetComponent<Animator>();
         gravity = 6f;
        
 	}
@@ -26,6 +30,7 @@ public class PlayerController : MonoBehaviour {
             Debug.Log("Jump");
             if (jumpEvent != null)
             {
+                anim.SetTrigger("jumpAnim");
                 jumpEvent();
             }  
         }
@@ -42,7 +47,7 @@ public class PlayerController : MonoBehaviour {
             if (GetComponent<Renderer>().material.color != hit.transform.gameObject.GetComponent<Renderer>().material.color)
             {
                 gameOverEvent();
-                Debug.Log("Game Over pc");
+                anim.enabled = false;
                 StartCoroutine(FallingBlock());
             }
         }           
@@ -55,7 +60,8 @@ public class PlayerController : MonoBehaviour {
        
         while (transform.position.x > -5f)
         {
-            transform.Translate(Vector3.down * gravity * Time.deltaTime);
+            
+            transform.Translate(new Vector3(0,-1,0) * gravity * Time.deltaTime);
             yield return null;
         }
         

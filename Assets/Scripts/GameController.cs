@@ -14,9 +14,13 @@ public class GameController : MonoBehaviour
     public GameObject spawner;
     public GameObject platePrefab;
 
-    // Use this for initialization
+ 
+
+
+    
     void Start()
     {
+        
         GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().jumpEvent += SpawnPlate;
         GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().gameOverEvent += GameOver;
         Instantiate(platePrefab, spawner.transform.position, Quaternion.identity);
@@ -52,8 +56,7 @@ public class GameController : MonoBehaviour
 
     void GameOver()
     {
-        GameOverEvent();        
-        Debug.Log("Game over gc");
+        GameOverEvent();
     }
 
 
