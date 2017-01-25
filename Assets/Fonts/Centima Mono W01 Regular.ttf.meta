@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: f42df738cc0e7f942935ff7f71a9d704
+timeCreated: 1485303613
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: CentimaMonoW01-Regular
+  fontNames:
+  - CentimaMonoW01-Regular
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
