@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour
+{
 
-   
+
     public delegate void PlayerDelegate();
     public event PlayerDelegate jumpEvent;
     public event PlayerDelegate gameOverEvent;
     public float jumpRate;
     public float gravity;
+
     float timeToNextJump = 0;
 
 
@@ -17,11 +19,11 @@ public class PlayerController : MonoBehaviour {
 
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         anim = GetComponent<Animator>();
         gravity = 6f;
-       
-	}
+    }
 
     public void Jump()
     {
@@ -32,10 +34,13 @@ public class PlayerController : MonoBehaviour {
             {
                 anim.SetTrigger("jumpAnim");
                 jumpEvent();
-            }  
+            }
         }
         timeToNextJump = Time.time + jumpRate;
     }
+
+
+
 
     public void TestBlock()
     {
@@ -50,21 +55,18 @@ public class PlayerController : MonoBehaviour {
                 anim.enabled = false;
                 StartCoroutine(FallingBlock());
             }
-        }           
-       
+        }
+
     }
 
 
     IEnumerator FallingBlock()
     {
-       
         while (transform.position.x > -5f)
         {
-            
-            transform.Translate(new Vector3(0,-1,0) * gravity * Time.deltaTime);
+            transform.Translate(new Vector3(0, 0, -1) * gravity * Time.deltaTime);
             yield return null;
         }
-        
     }
 
 
