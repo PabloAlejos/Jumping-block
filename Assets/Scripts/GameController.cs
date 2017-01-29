@@ -14,15 +14,16 @@ public class GameController : MonoBehaviour
     public GameObject spawner;
     public GameObject platePrefab;
 
- 
 
 
-    
+
+
     void Start()
     {
-        
+
         GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().jumpEvent += SpawnPlate;
-        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().gameOverEvent += GameOver;
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().successEvent += AddScore;
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().failEvent += TimePenalty;
         Instantiate(platePrefab, spawner.transform.position, Quaternion.identity);
     }
 
@@ -30,7 +31,7 @@ public class GameController : MonoBehaviour
     void Update()
     {
         remainingTime -= Time.deltaTime;
-        
+
         if (remainingTime <= 0)
         {
             GameOver();
@@ -42,7 +43,6 @@ public class GameController : MonoBehaviour
     {
         if (newSpawn)
         {
-
             Instantiate(platePrefab, spawner.transform.position, Quaternion.identity);
             newSpawn = false;
         }
@@ -51,7 +51,6 @@ public class GameController : MonoBehaviour
     void SpawnPlate()
     {
         newSpawn = true;
-        score++;
     }
 
     void GameOver()
@@ -59,5 +58,16 @@ public class GameController : MonoBehaviour
         GameOverEvent();
     }
 
+    void TimePenalty(float timeInSecs)
+    {
+        remainingTime -= timeInSecs;
+        Debug.Log("resta");
+    }
+
+
+    void AddScore(float value)
+    {
+        score += value;
+    }
 
 }

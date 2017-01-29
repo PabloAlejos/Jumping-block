@@ -6,9 +6,11 @@ public class PlayerController : MonoBehaviour
 {
 
 
-    public delegate void PlayerDelegate();
-    public event PlayerDelegate jumpEvent;
-    public event PlayerDelegate gameOverEvent;
+    public delegate void PlayerDelegate(float value);
+    public delegate void PlayerJumpDelegate();
+    public event PlayerJumpDelegate jumpEvent;
+    public event PlayerDelegate failEvent;
+    public event PlayerDelegate successEvent;
     public float jumpRate;
     public float gravity;
 
@@ -25,7 +27,7 @@ public class PlayerController : MonoBehaviour
         gravity = 6f;
     }
 
-    public void Jump()
+    public bool Jump()
     {
         if (Time.time > timeToNextJump)
         {
@@ -35,12 +37,11 @@ public class PlayerController : MonoBehaviour
                 anim.SetTrigger("jumpAnim");
                 jumpEvent();
             }
+            timeToNextJump = Time.time + jumpRate;
+           return true;
         }
-        timeToNextJump = Time.time + jumpRate;
+       return false;
     }
-
-
-
 
     public void TestBlock()
     {
@@ -49,12 +50,17 @@ public class PlayerController : MonoBehaviour
 
         if (Physics.Raycast(myRay, out hit, 2))
         {
+
             if (GetComponent<Renderer>().material.color != hit.transform.gameObject.GetComponent<Renderer>().material.color)
             {
-                gameOverEvent();
-                anim.enabled = false;
-                StartCoroutine(FallingBlock());
+                failEvent(2f);
+                
             }
+            else
+            {
+                successEvent(1f);
+            }
+
         }
 
     }
@@ -68,6 +74,7 @@ public class PlayerController : MonoBehaviour
             yield return null;
         }
     }
+    
 
 
 

@@ -13,7 +13,7 @@ public class Player : MonoBehaviour {
 	void Start () {
         rend = GetComponent<Renderer>();
 
-        //Hago un casteo y copio el color de la plataforma de debajo
+        //Hago un raycast y copio el color de la plataforma de debajo
         RaycastHit hit;
         Ray myRay = new Ray(transform.position, Vector3.down);
         

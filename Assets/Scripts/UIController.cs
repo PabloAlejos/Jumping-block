@@ -36,7 +36,8 @@ public class UIController : MonoBehaviour
 
     public void SetPlayerColor(int newColor)
     {
-        GameObject.FindGameObjectWithTag("Player").GetComponent<Renderer>().material.color = colors[newColor];
+        if (GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().Jump())
+            GameObject.FindGameObjectWithTag("Player").GetComponent<Renderer>().material.color = colors[newColor];
     }
 
 
