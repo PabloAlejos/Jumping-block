@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     public event PlayerDelegate successEvent;
     public float jumpRate;
     public float gravity;
+    public bool allowDestroy;
+
 
     float timeToNextJump = 0;
 
@@ -74,8 +76,11 @@ public class PlayerController : MonoBehaviour
             yield return null;
         }
     }
-    
 
+    public void ResetPos()
+    {
+        transform.rotation = new Quaternion(0, 0, 0, 0);
+    }
 
 
 }

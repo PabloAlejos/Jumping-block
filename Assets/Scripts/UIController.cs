@@ -8,7 +8,10 @@ public class UIController : MonoBehaviour
 {
 
     public GameController gc;
+
+    public GameObject inGameScreen;
     public GameObject gameOverSreen;
+
     public Color[] colors;
 
     public Text time;
@@ -21,6 +24,7 @@ public class UIController : MonoBehaviour
     {
         GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().GameOverEvent += GameOver;
     }
+
 
 
     void Update()
@@ -44,13 +48,15 @@ public class UIController : MonoBehaviour
     void GameOver()
     {
         Debug.Log("Final Game Over");
-        gameOverSreen.GetComponent<Canvas>().enabled = true;
-        GetComponent<Canvas>().enabled = false;
+        gameOverSreen.SetActive(true);
+        inGameScreen.SetActive(false);
     }
 
 
-    public void LoadScene(int scene)
+    public void LoadScene(int i)
     {
-        SceneManager.LoadScene(scene);
+        Destroy(GameObject.FindGameObjectWithTag("Player"));
+        SceneManager.LoadScene(i);
     }
+
 }

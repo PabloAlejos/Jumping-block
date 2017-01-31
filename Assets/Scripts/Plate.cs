@@ -13,7 +13,7 @@ public class Plate : MonoBehaviour
     GameObject player;
     float target;
 
-    bool sliding = false;
+    //bool sliding = false;
 
     public float ajuste;
 
@@ -33,7 +33,6 @@ public class Plate : MonoBehaviour
     void Step()
     {
         StartCoroutine(PlateStep());
-
     }
 
 
@@ -42,11 +41,11 @@ public class Plate : MonoBehaviour
        
         while (transform.position.z <= target - ajuste)
         {
-            sliding = true;
+            //sliding = true;
             transform.Translate(Vector3.forward * speed * Time.deltaTime);
             yield return null;
         }
-        sliding = false;
+        //sliding = false;
         transform.position = new Vector3(transform.position.x, transform.position.y, target);
         target = transform.position.z + stepDistance;
 

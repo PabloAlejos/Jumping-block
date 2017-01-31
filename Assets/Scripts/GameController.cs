@@ -8,25 +8,29 @@ public class GameController : MonoBehaviour
     public delegate void GameControllerEvent();
     public event GameControllerEvent GameOverEvent;
 
+
+    GameObject player;
+
     public float remainingTime = 60;
-    public float score = 0;
+    public int score = 0;
     bool newSpawn = false;
     public GameObject spawner;
     public GameObject platePrefab;
 
-
-
-
+    int highScore;
 
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
+        player.GetComponent<PlayerController>().jumpEvent += SpawnPlate;
+        player.GetComponent<PlayerController>().successEvent += AddScore;
+        player.GetComponent<PlayerController>().failEvent += TimePenalty;
 
-        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().jumpEvent += SpawnPlate;
-        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().successEvent += AddScore;
-        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().failEvent += TimePenalty;
+
         Instantiate(platePrefab, spawner.transform.position, Quaternion.identity);
+        highScore = PlayerPrefs.GetInt("highscore", highScore);
+        Debug.Log(highScore);
     }
-
 
     void Update()
     {
@@ -55,6 +59,11 @@ public class GameController : MonoBehaviour
 
     void GameOver()
     {
+        if (score > highScore)
+        {
+            PlayerPrefs.SetInt("highscore", score);
+            Debug.Log("New High score!: " + score);
+        }
         GameOverEvent();
     }
 
@@ -67,7 +76,9 @@ public class GameController : MonoBehaviour
 
     void AddScore(float value)
     {
-        score += value;
+        score += (int)value;
     }
+
+
 
 }
