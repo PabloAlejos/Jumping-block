@@ -6,14 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class UIController : MonoBehaviour
 {
-
+    public Image blocker;
     public GameController gc;
-
     public GameObject inGameScreen;
     public GameObject gameOverSreen;
-
-    public Color[] colors;
-
+    Color[] colors;
     public Text time;
     public Text score;
 
@@ -22,7 +19,8 @@ public class UIController : MonoBehaviour
 
     void Start()
     {
-        GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().GameOverEvent += GameOver;
+        colors = FindObjectOfType<Player>().colors;
+        GameObject.FindObjectOfType<GameController>().GetComponent<GameController>().GameOverEvent += GameOver;
     }
 
 
@@ -40,8 +38,8 @@ public class UIController : MonoBehaviour
 
     public void SetPlayerColor(int newColor)
     {
-        if (GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().Jump())
-            GameObject.FindGameObjectWithTag("Player").GetComponent<Renderer>().material.color = colors[newColor];
+        if (GameObject.FindObjectOfType<Player>().GetComponent<PlayerController>().Jump())
+            GameObject.FindObjectOfType<Player>().GetComponent<Renderer>().material.color = colors[newColor];
     }
 
 
@@ -59,4 +57,8 @@ public class UIController : MonoBehaviour
         SceneManager.LoadScene(i);
     }
 
+    public void SetBlocker(bool state)
+    {
+        blocker.gameObject.SetActive(state);
+    }
 }

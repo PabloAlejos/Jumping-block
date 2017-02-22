@@ -21,7 +21,6 @@ public class PlayerController : MonoBehaviour
 
     Animator anim;
 
-
     // Use this for initialization
     void Start()
     {
@@ -56,7 +55,9 @@ public class PlayerController : MonoBehaviour
             if (GetComponent<Renderer>().material.color != hit.transform.gameObject.GetComponent<Renderer>().material.color)
             {
                 failEvent(2f);
-                
+           
+                Handheld.Vibrate();
+
             }
             else
             {

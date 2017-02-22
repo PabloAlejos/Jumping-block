@@ -51,8 +51,6 @@ public class Plate : MonoBehaviour
 
     }
 
-
-
     void FixedUpdate()
     {
         if (transform.position.z > 2)

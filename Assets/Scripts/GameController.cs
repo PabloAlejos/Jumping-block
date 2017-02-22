@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -39,6 +40,11 @@ public class GameController : MonoBehaviour
         if (remainingTime <= 0)
         {
             GameOver();
+        }
+
+        if (Input.GetKey("escape"))
+        {
+            SceneManager.LoadScene(0);
         }
     }
 
